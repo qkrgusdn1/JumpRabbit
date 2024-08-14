@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private GameManager instance;
     [SerializeField] Player player;
-
+    [SerializeField] PaltformManager paltformManager;
     public GameManager Instance
     {
         get { return instance; }
@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        paltformManager.Active();
         player.Init();
+        paltformManager.Init();
     }
 }

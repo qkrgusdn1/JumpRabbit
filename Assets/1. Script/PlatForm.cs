@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatForm : MonoBehaviour
+public class Platform : MonoBehaviour
 {
-    public new SpriteRenderer renderer;
-
+    public void Active(Vector2 position)
+    {
+        transform.position = position;
+    }
 }
