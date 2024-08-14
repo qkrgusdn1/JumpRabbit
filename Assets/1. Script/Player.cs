@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     {
         if ((groundLayer & (1 << collision.gameObject.layer)) != 0)
         {
-
+            isGrounded = true;
             animator.SetInteger("StateID", 0);
             rb.velocity = Vector2.zero;
         }
