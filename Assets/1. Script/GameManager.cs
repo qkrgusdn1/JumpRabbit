@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private GameManager instance;
-    [SerializeField] Player player;
-    [SerializeField] PaltformManager paltformManager;
-    public GameManager Instance
-    {
-        get { return instance; }
-    }
+    [SerializeField] private Player player;
+    [SerializeField] private PaltformManager platformManager;
+    [SerializeField] private CameraManager cameraManager;
 
     private void Awake()
     {
-        instance = this;
-        paltformManager.Active();
         player.Init();
-        paltformManager.Init();
+        platformManager.Init();
+        cameraManager.Init();
+    }
+
+    private void Start()
+    {
+        platformManager.Active();
     }
 }
