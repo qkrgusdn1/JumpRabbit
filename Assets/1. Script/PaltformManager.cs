@@ -5,28 +5,19 @@ using UnityEngine;
 public class PaltformManager : MonoBehaviour
 {
     [SerializeField] Transform spawnPosTr;
-    [SerializeField] Platform[] largePlatformArr;
-    [SerializeField] Platform[] middlePlatformArr;
-    [SerializeField] Platform[] smallPlatformArr;
-    [SerializeField] private Transform spawnPosTrf;
-    [SerializeField] private Platform[] LargePlatformArr;
-    [SerializeField] private Platform[] MiddlePlatformArr;
-    [SerializeField] private Platform[] SmallPlatformArr;
-    [SerializeField] private Data[] DataArr;
+    
     private int platformNum = 0;
 
-    [SerializeField] private float GapIntervalMin = 1.0f;
-    [SerializeField] private float GapIntervalMax = 2.0f;
+    
 
-    Dictionary<int, Platform[]> PlatformArrDic = new Dictionary<int, Platform[]>();
-    Dictionary<int, Platform[]> platformArrDic = new Dictionary<int, Platform[]>();
+    Dictionary<int, PlatformPrefab[]> platformArrDic = new Dictionary<int, PlatformPrefab[]>();
     [System.Serializable]
     public class Data
     {
         public int GroupCount;
-        [SerializeField] private float LargePercent;
-        [SerializeField] private float MiddlePercent;
-        [SerializeField] private float SmallPercent;
+        [Tooltip("Å« ÇÃ·¿Æû ºñÀ²(0~1.0)"), Range(0,1)][SerializeField] private float LargePercent;
+        [Tooltip("Áß°£ ÇÃ·¿Æû ºñÀ²(0~1.0)"), Range(0, 1)] private float MiddlePercent;
+        [Tooltip("ÀÛÀº ÇÃ·¿Æû ºñÀ²(0~1.0)"), Range(0, 1)] private float SmallPercent;
 
         public int GetPlatformID()
         {
@@ -49,28 +40,36 @@ public class PaltformManager : MonoBehaviour
     }
     internal void Active()
     {
-        platformArrDic.Add(0, smallPlatformArr);
-        platformArrDic.Add(1, middlePlatformArr);
-        platformArrDic.Add(2, largePlatformArr);
+        Vector3 pos = spawnPosTr.position;
+        int platformGroupSum = 0;
+        foreach (Data data in DataBaseManager.Instance.DataArr)
+        {
+            platformGroupSum += data.GroupCount;
+            while (platformNum < platformGroupSum)
+            {
+                int platformID = data.GetPlatformID();
+                pos = ActiveOne(pos, platformID);
+                platformNum++;
+            }
+        }
     }
 
-    internal void Init() 
+    internal void Init()
     {
-        Platform[] platforms = platformArrDic[2];
-
-        Platform platform = platforms[Random.Range(0, platforms.Length)];
-        Platform platform1 = Instantiate(platform);
-        platform1.Active(spawnPosTr.position);
+        platformArrDic.Add(0, DataBaseManager.Instance.largePlatformArr);
+        platformArrDic.Add(1, DataBaseManager.Instance.middlePlatformArr);
+        platformArrDic.Add(2, DataBaseManager.Instance.smallPlatformArr);
     }
     private Vector3 ActiveOne(Vector3 pos, int platformID)
     {
-        Platform[] platforms = PlatformArrDic[platformID];
+        PlatformPrefab[] platforms = platformArrDic[platformID];
 
         int randID = Random.Range(0, platforms.Length);
-        Platform randomPlatform = platforms[randID];
-        Debug.Log($"Platform [{platformID}, {randID}]");
+        PlatformPrefab randomPlatform = platforms[randID];
 
-        Platform platform = Instantiate(randomPlatform);
+        Debug.Log($"Platform [{platformID}, {randID}], platforms.length: {platforms.Length}, randomPlatform: {randomPlatform}");
+
+        PlatformPrefab platform = Instantiate(randomPlatform);
 
         if (platformNum != 0)
         {
@@ -79,7 +78,7 @@ public class PaltformManager : MonoBehaviour
 
         platform.Active(pos);
 
-        float gap = Random.Range(GapIntervalMin, GapIntervalMax);
+        float gap = Random.Range(DataBaseManager.Instance.GapIntervalMin, DataBaseManager.Instance.GapIntervalMax);
         pos += Vector3.right * (platform.HalfSizeX + gap);
         return pos;
     }

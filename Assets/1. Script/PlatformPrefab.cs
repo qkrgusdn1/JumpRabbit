@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+public class PlatformPrefab : MonoBehaviour
 {
     private BoxCollider2D col;
-
+    [SerializeField] int score;
     public float HalfSizeX => col.size.x * 0.5f;
 
     private void Awake()
@@ -17,4 +17,10 @@ public class Platform : MonoBehaviour
     {
         transform.position = pos;
     }
+
+    internal void OnLoding()
+    {
+        ScoreManager.Instance.AddScore(score, transform.position);
+    }
 }
+
