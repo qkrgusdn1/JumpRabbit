@@ -13,4 +13,9 @@ public static class MyExtension
         else if (pointNum == 3) return string.Format("{0:N1}", value);
         else return value.ToString();
     }
+
+    public static string ToPercentString(this float value)
+    {
+        return (value * 100).ToString() + "%";
+    }
 }

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891ebfe618253304ab51d68b5920daf9, type: 3}
   m_Name: DataBaseManager
   m_EditorClassIdentifier: 
-  jumpPowerIncrease: 1
+  scoreColor: {r: 0, g: 0, b: 0, a: 0}
+  bounsColor: {r: 0.27450982, g: 1, b: 0, a: 0}
+  jumpPowerIncrease: 2
   largePlatformArr:
   - {fileID: 6945494998386672073, guid: b29b102579bbd3f4bae0ea230fe20bda, type: 3}
   - {fileID: 6945494998386672073, guid: c2ae3185c1c5b8e4292c1f5c0c655fe0, type: 3}
@@ -35,4 +37,5 @@ MonoBehaviour:
     LargePercent: 0.4
   GapIntervalMin: 1
   GapIntervalMax: 2
+  BonusValue: 0.05
   followSpeed: 5

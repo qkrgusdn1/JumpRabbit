@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
 
             if(collision.transform.parent.TryGetComponent(out PlatformPrefab platform))
             {
-                platform.OnLoding();
+                
 
                 if(landedPlatforms != platform)
                 {
@@ -75,8 +75,11 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    ScoreManager.Instance.ResetBonus();
+                    ScoreManager.Instance.ResetBonus(transform.position);
                 }
+                ScoreManager.Instance.AddScore(platform.score, transform.position);
+                landedPlatforms = platform;
+                
             }
 
         }

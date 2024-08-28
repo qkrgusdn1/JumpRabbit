@@ -6,6 +6,11 @@ public class DataBaseManager : ScriptableObject
 {
     public static DataBaseManager Instance;
 
+    [Header("¿¬Ãâ")]
+    public Color scoreColor;
+    public Color bounsColor;
+    public float scorePopInterval = 0.2f;
+
     [Header("ÇÃ·¹ÀÌ¾î")]
     public float jumpPowerIncrease = 1;
     [Header("ÇÃ·¿Æû")]

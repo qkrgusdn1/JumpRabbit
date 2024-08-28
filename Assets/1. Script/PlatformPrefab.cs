@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformPrefab : MonoBehaviour
 {
     private BoxCollider2D col;
-    [SerializeField] int score;
+    [SerializeField] public int score;
     public float HalfSizeX => col.size.x * 0.5f;
 
     private void Awake()
