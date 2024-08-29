@@ -16,6 +16,12 @@ public class PlatformPrefab : MonoBehaviour
     public void Active(Vector2 pos)
     {
         transform.position = pos;
+
+        if(Random.value < DataBaseManager.Instance.itemSpawnPer)
+        {
+            Item item = Instantiate<Item>(DataBaseManager.Instance.baseItem);
+            item.Activate(transform.position, 0.5f);
+        }    
     }
 
     internal void OnLoding()

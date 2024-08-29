@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreColor: {r: 0, g: 0, b: 0, a: 0}
   bounsColor: {r: 0.27450982, g: 1, b: 0, a: 0}
+  scorePopInterval: 0.2
   jumpPowerIncrease: 2
   largePlatformArr:
   - {fileID: 6945494998386672073, guid: b29b102579bbd3f4bae0ea230fe20bda, type: 3}
@@ -39,3 +40,6 @@ MonoBehaviour:
   GapIntervalMax: 2
   BonusValue: 0.05
   followSpeed: 5
+  baseItem: {fileID: 3552148280310951373, guid: 4fd1933e6d98b0641a8ae4df1049d85c, type: 3}
+  itemSpawnPer: 0.2
+  itemBonus: 0.05

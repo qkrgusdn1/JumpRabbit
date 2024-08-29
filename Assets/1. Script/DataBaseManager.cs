@@ -24,7 +24,10 @@ public class DataBaseManager : ScriptableObject
     [Tooltip("보너스 추가 점수")] public float BonusValue = 0.05f;
     [Header("카메라")]
     public float followSpeed = 5;
-
+    [Header("아이템")]
+    public Item baseItem;
+    public float itemSpawnPer = 0.2f;
+    public float itemBonus;
     public void Init()
     {
         Instance = this;
