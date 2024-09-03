@@ -41,5 +41,10 @@ MonoBehaviour:
   BonusValue: 0.05
   followSpeed: 5
   baseItem: {fileID: 3552148280310951373, guid: 4fd1933e6d98b0641a8ae4df1049d85c, type: 3}
-  itemSpawnPer: 0.2
+  itemSpawnPer: 1
   itemBonus: 0.05
+  sfxDataArr:
+  - sfxType: 1
+    clip: {fileID: 8300000, guid: 4973db4449778d64cad7dee8f61ee655, type: 3}
+  - sfxType: 2
+    clip: {fileID: 8300000, guid: 5d09e673d2989934c9bf634cbaa9f8aa, type: 3}

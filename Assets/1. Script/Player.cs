@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     public bool isGrounded;
     Animator animator;
     PlatformPrefab landedPlatforms;
+    public Image powerBar;
+    bool isJump;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,8 +30,10 @@ public class Player : MonoBehaviour
     {
         if (rb != null && isGrounded)
         {
+            isJump = true;
             animator.SetInteger("StateID", 2);
-            animator.Play("Jump");
+            Define.SfxType sfxType = Random.value < 0.5f ? Define.SfxType.Jump1 : Define.SfxType.Jump2;
+            SoundManager.instance.PlaySfx(sfxType);
             rb.AddForce(Vector3.one * currentJumpPower);
             currentJumpPower = 0;
         }
@@ -53,6 +58,7 @@ public class Player : MonoBehaviour
         {
             Jump();
         }
+        powerBar.fillAmount = currentJumpPower / maxJumpPower;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -60,6 +66,7 @@ public class Player : MonoBehaviour
         if ((groundLayer & (1 << collision.gameObject.layer)) != 0)
         {
             isGrounded = true;
+            isJump = false;
             animator.SetInteger("StateID", 0);
             rb.velocity = Vector2.zero;
 
@@ -82,6 +89,14 @@ public class Player : MonoBehaviour
                 
             }
 
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if ((groundLayer & (1 << collision.gameObject.layer)) != 0 && !isJump)
+        {
+            animator.SetInteger("StateID", 0);
         }
     }
 

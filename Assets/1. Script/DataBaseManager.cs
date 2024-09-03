@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 [CreateAssetMenu]
 public class DataBaseManager : ScriptableObject
@@ -28,8 +29,36 @@ public class DataBaseManager : ScriptableObject
     public Item baseItem;
     public float itemSpawnPer = 0.2f;
     public float itemBonus;
+
+    [Header("»ç¿îµå")]
+    public SfxData[] sfxDataArr;
+    Dictionary<Define.SfxType, SfxData> sfxDataDic = new Dictionary<Define.SfxType, SfxData> ();
     public void Init()
     {
         Instance = this;
+
+        foreach(SfxData data in sfxDataArr)
+        {
+            sfxDataDic.Add(data.sfxType, data);
+        }
+    }
+
+    public SfxData GetSfxData(Define.SfxType type)
+    {
+        return sfxDataDic[type];
+    }
+
+    [System.Serializable]
+    public class SfxData
+    {
+        public Define.SfxType sfxType;
+        public AudioClip clip;
+    }
+
+    [System.Serializable]
+    public class BgmData
+    {
+        public Define.BgmType bgmType;
+        public AudioClip clip;
     }
 }
