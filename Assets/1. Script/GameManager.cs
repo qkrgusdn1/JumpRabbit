@@ -19,8 +19,14 @@ public class GameManager : MonoBehaviour
         player.Init();
         
         platformManager.Init();
-        platformManager.Active();
+        
         cameraManager.Init();
         soundManager.Init();
+    }
+
+    private void Start()
+    {
+        platformManager.Active();
+        soundManager.PlayBgm(Define.BgmType.Main);
     }
 }

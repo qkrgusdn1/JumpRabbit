@@ -7,10 +7,12 @@ public class PlatformPrefab : MonoBehaviour
     private BoxCollider2D col;
     [SerializeField] public int score;
     public float HalfSizeX => col.size.x * 0.5f;
+    Animation ani;
 
     private void Awake()
     {
         col = GetComponentInChildren<BoxCollider2D>();
+        ani = GetComponentInChildren<Animation>();
     }
 
     public void Active(Vector2 pos)
@@ -27,6 +29,10 @@ public class PlatformPrefab : MonoBehaviour
     internal void OnLoding()
     {
         ScoreManager.Instance.AddScore(score, transform.position);
+    }
+    internal void OnLodingAnimation()
+    {
+        ani.Play();
     }
 }
 

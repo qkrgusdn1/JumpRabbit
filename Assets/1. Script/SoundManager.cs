@@ -16,6 +16,15 @@ public class SoundManager : MonoBehaviour
     public void PlaySfx(Define.SfxType sfxType)
     {
         DataBaseManager.SfxData sfxData = DataBaseManager.Instance.GetSfxData(sfxType);
+        sfxAudioSource.volume = sfxData.volume;
         sfxAudioSource.PlayOneShot(sfxData.clip);
+        
+    }
+    public void PlayBgm(Define.BgmType type)
+    {
+        DataBaseManager.BgmData bgmData = DataBaseManager.Instance.GetBgmData(type);
+        bgmAudioSource.volume = bgmData.volume;
+        bgmAudioSource.clip = bgmData.clip;
+        bgmAudioSource.Play();
     }
 }

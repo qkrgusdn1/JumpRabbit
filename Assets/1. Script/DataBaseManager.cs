@@ -32,7 +32,9 @@ public class DataBaseManager : ScriptableObject
 
     [Header("»ç¿îµå")]
     public SfxData[] sfxDataArr;
+    public BgmData[] bgmDataArr;
     Dictionary<Define.SfxType, SfxData> sfxDataDic = new Dictionary<Define.SfxType, SfxData> ();
+    Dictionary<Define.BgmType, BgmData> bgmDataDic = new Dictionary<Define.BgmType, BgmData>();
     public void Init()
     {
         Instance = this;
@@ -41,24 +43,40 @@ public class DataBaseManager : ScriptableObject
         {
             sfxDataDic.Add(data.sfxType, data);
         }
+
+        foreach (BgmData data in bgmDataArr)
+        {
+            bgmDataDic.Add(data.bgmType, data);
+        }
     }
 
     public SfxData GetSfxData(Define.SfxType type)
     {
         return sfxDataDic[type];
     }
+    public BgmData GetBgmData(Define.BgmType type)
+    {
+        return bgmDataDic[type];
+    }
+
+
 
     [System.Serializable]
-    public class SfxData
+    public class SfxData : SoundData
     {
         public Define.SfxType sfxType;
-        public AudioClip clip;
     }
 
     [System.Serializable]
-    public class BgmData
+    public class BgmData : SoundData
     {
         public Define.BgmType bgmType;
+       
+    }
+
+    public class SoundData
+    {
         public AudioClip clip;
+        public float volume = 1; 
     }
 }

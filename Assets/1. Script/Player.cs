@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+       
         if ((groundLayer & (1 << collision.gameObject.layer)) != 0)
         {
             isGrounded = true;
@@ -74,8 +75,6 @@ public class Player : MonoBehaviour
 
             if(collision.transform.parent.TryGetComponent(out PlatformPrefab platform))
             {
-                
-
                 if(landedPlatforms != platform)
                 {
                     ScoreManager.Instance.AddBonus(DataBaseManager.Instance.BonusValue, transform.position);
@@ -86,7 +85,9 @@ public class Player : MonoBehaviour
                 }
                 ScoreManager.Instance.AddScore(platform.score, transform.position);
                 landedPlatforms = platform;
-                
+                landedPlatforms.OnLodingAnimation();
+
+
             }
 
         }
