@@ -8,7 +8,7 @@ public class PaltformManager : MonoBehaviour
     
     private int platformNum = 0;
 
-    
+    Vector3 pos;
 
     Dictionary<int, PlatformPrefab[]> platformArrDic = new Dictionary<int, PlatformPrefab[]>();
     [System.Serializable]
@@ -16,8 +16,8 @@ public class PaltformManager : MonoBehaviour
     {
         public int GroupCount;
         [Tooltip("Å« ÇÃ·¿Æû ºñÀ²(0~1.0)"), Range(0,1)][SerializeField] private float LargePercent;
-        [Tooltip("Áß°£ ÇÃ·¿Æû ºñÀ²(0~1.0)"), Range(0, 1)] private float MiddlePercent;
-        [Tooltip("ÀÛÀº ÇÃ·¿Æû ºñÀ²(0~1.0)"), Range(0, 1)] private float SmallPercent;
+        [Tooltip("Áß°£ ÇÃ·¿Æû ºñÀ²(0~1.0)"), Range(0, 1)][SerializeField] private float MiddlePercent;
+        [Tooltip("ÀÛÀº ÇÃ·¿Æû ºñÀ²(0~1.0)"), Range(0, 1)][SerializeField] private float SmallPercent;
 
         public int GetPlatformID()
         {
@@ -40,7 +40,7 @@ public class PaltformManager : MonoBehaviour
     }
     internal void Active()
     {
-        Vector3 pos = spawnPosTr.position;
+        pos = spawnPosTr.position;
         int platformGroupSum = 0;
         foreach (Data data in DataBaseManager.Instance.DataArr)
         {
@@ -48,7 +48,7 @@ public class PaltformManager : MonoBehaviour
             while (platformNum < platformGroupSum)
             {
                 int platformID = data.GetPlatformID();
-                pos = ActiveOne(pos, platformID);
+                ActiveOne(platformID);
                 platformNum++;
             }
         }
@@ -60,7 +60,7 @@ public class PaltformManager : MonoBehaviour
         platformArrDic.Add(1, DataBaseManager.Instance.middlePlatformArr);
         platformArrDic.Add(2, DataBaseManager.Instance.smallPlatformArr);
     }
-    private Vector3 ActiveOne(Vector3 pos, int platformID)
+    private void ActiveOne(int platformID)
     {
         PlatformPrefab[] platforms = platformArrDic[platformID];
 
@@ -81,6 +81,6 @@ public class PaltformManager : MonoBehaviour
 
         float gap = Random.Range(DataBaseManager.Instance.GapIntervalMin, DataBaseManager.Instance.GapIntervalMax);
         pos += Vector3.right * (platform.HalfSizeX + gap);
-        return pos;
+        return;
     }
 }
