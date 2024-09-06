@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PaltformManager : MonoBehaviour
 {
+    public static PaltformManager instance;
+
     [SerializeField] Transform spawnPosTr;
     
-    private int platformNum = 0;
+    public int platformNum = 0;
+    public int landingPlatformNum;
 
     Vector3 pos;
 
@@ -38,6 +41,21 @@ public class PaltformManager : MonoBehaviour
             return platformID;
         }
     }
+
+    private void Update()
+    {
+        if(platformNum - landingPlatformNum < DataBaseManager.Instance.remainPlatformCount)
+        {
+            int lastIndex = DataBaseManager.Instance.DataArr.Length - 1;
+            Data lastData = DataBaseManager.Instance.DataArr[lastIndex];
+
+            for (int i = 0; i < lastData.GroupCount; i++)
+            {
+                int platformID = lastData.GetPlatformID();
+                ActiveOne(platformID);
+            }
+        }
+    }
     internal void Active()
     {
         pos = spawnPosTr.position;
@@ -49,19 +67,21 @@ public class PaltformManager : MonoBehaviour
             {
                 int platformID = data.GetPlatformID();
                 ActiveOne(platformID);
-                platformNum++;
+                
             }
         }
     }
 
     internal void Init()
     {
+        instance = this;
         platformArrDic.Add(0, DataBaseManager.Instance.largePlatformArr);
         platformArrDic.Add(1, DataBaseManager.Instance.middlePlatformArr);
         platformArrDic.Add(2, DataBaseManager.Instance.smallPlatformArr);
     }
     private void ActiveOne(int platformID)
     {
+        platformNum++;
         PlatformPrefab[] platforms = platformArrDic[platformID];
 
         int randID = Random.Range(0, platforms.Length);
@@ -71,13 +91,10 @@ public class PaltformManager : MonoBehaviour
 
         PlatformPrefab platform = Instantiate(randomPlatform);
 
-        bool isFirstFrame = platformNum == 0;
-        if(isFirstFrame == false)
-        {
+        if (platformNum > 1)
             pos = pos + Vector3.right * platform.HalfSizeX;
-        }
 
-        platform.Active(pos, isFirstFrame);
+        platform.Active(pos, platformNum);
 
         float gap = Random.Range(DataBaseManager.Instance.GapIntervalMin, DataBaseManager.Instance.GapIntervalMax);
         pos += Vector3.right * (platform.HalfSizeX + gap);

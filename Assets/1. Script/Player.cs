@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -85,7 +86,7 @@ public class Player : MonoBehaviour
 
             if(collision.transform.TryGetComponent(out PlatformPrefab platform))
             {
-
+                PaltformManager.instance.landingPlatformNum = platform.number;
                 if (landedPlatforms == null)
                 {
                     landedPlatforms = platform;

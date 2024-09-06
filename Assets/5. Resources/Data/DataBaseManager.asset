@@ -32,15 +32,22 @@ MonoBehaviour:
   - {fileID: 7692794091850467918, guid: cee753d0fb8665f46956ab81296fdb80, type: 3}
   - {fileID: 7692794091850467918, guid: 834852b07878bc548a4b108061152573, type: 3}
   DataArr:
-  - GroupCount: 5
+  - GroupCount: 2
     LargePercent: 1
+    MiddlePercent: 0
+    SmallPercent: 0
   - GroupCount: 5
     LargePercent: 0
+    MiddlePercent: 1
+    SmallPercent: 0
   - GroupCount: 5
     LargePercent: 0.4
+    MiddlePercent: 0.4
+    SmallPercent: 0.2
   GapIntervalMin: 1
   GapIntervalMax: 2
   BonusValue: 0.05
+  remainPlatformCount: 5
   followSpeed: 5
   baseItem: {fileID: 3552148280310951373, guid: 4fd1933e6d98b0641a8ae4df1049d85c, type: 3}
   itemSpawnPer: 1

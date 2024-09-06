@@ -6,6 +6,8 @@ public class PlatformPrefab : MonoBehaviour
 {
     private BoxCollider2D col;
     [SerializeField] public int score;
+    public int number;
+    public int landingPlatFormNumber;
     public float HalfSizeX => col.size.x * 0.5f;
     Animation ani;
 
@@ -15,11 +17,12 @@ public class PlatformPrefab : MonoBehaviour
         ani = GetComponentInChildren<Animation>();
     }
 
-    public void Active(Vector2 pos, bool isFirstFrame)
+    public void Active(Vector2 pos, int platformNum)
     {
         transform.position = pos;
+        number = platformNum;
 
-        if (isFirstFrame)
+        if (platformNum == 1)
             return;
 
         if(Random.value < DataBaseManager.Instance.itemSpawnPer)
