@@ -42,6 +42,13 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public void Active()
+    {
+        StartCoroutine(OnScoreCor());
+        scoreTmp.text = totalScore.ToString();
+        bounsTmp.text = totalBouns.ToString();
+    }
+
     internal void AddBonus(float bouns, Vector3 position)
     {
         totalBouns += bouns;

@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
             SoundManager.instance.PlaySfx(sfxType);
             rb.AddForce(Vector3.one * currentJumpPower);
             currentJumpPower = 0;
+            Effect effect = Instantiate(DataBaseManager.Instance.effect);
+            effect.Active(transform.position);
         }
     }
 
@@ -43,13 +45,15 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(isGrounded)
+            if (isGrounded)
+            {
                 animator.SetInteger("StateID", 1);
+            }
         }
-        else if(Input.GetKey(KeyCode.Space))
+        else if (Input.GetKey(KeyCode.Space))
         {
             animator.Play("JumpReady");
-            if(currentJumpPower <= maxJumpPower)
+            if (currentJumpPower <= maxJumpPower)
             {
                 currentJumpPower += DataBaseManager.Instance.jumpPowerIncrease;
             }
@@ -58,14 +62,20 @@ public class Player : MonoBehaviour
         {
             Jump();
         }
+
+        if(transform.position.y < DataBaseManager.Instance.GameOverHeight)
+        {
+            GameManager.instance.OnGameOver();
+        }
         powerBar.fillAmount = currentJumpPower / maxJumpPower;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       
+        Debug.Log("Collision detected with: " + collision.gameObject.name);
         if ((groundLayer & (1 << collision.gameObject.layer)) != 0)
         {
+            
             isGrounded = true;
             isJump = false;
             animator.SetInteger("StateID", 0);
@@ -73,9 +83,15 @@ public class Player : MonoBehaviour
 
             CameraManager.Instance.OnFollow(transform.position);
 
-            if(collision.transform.parent.TryGetComponent(out PlatformPrefab platform))
+            if(collision.transform.TryGetComponent(out PlatformPrefab platform))
             {
-                if(landedPlatforms != platform)
+
+                if (landedPlatforms == null)
+                {
+                    landedPlatforms = platform;
+                    return;
+                }
+                if (landedPlatforms != platform)
                 {
                     ScoreManager.Instance.AddBonus(DataBaseManager.Instance.BonusValue, transform.position);
                 }
@@ -98,6 +114,7 @@ public class Player : MonoBehaviour
         if ((groundLayer & (1 << collision.gameObject.layer)) != 0 && !isJump)
         {
             animator.SetInteger("StateID", 0);
+            
         }
     }
 

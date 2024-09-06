@@ -15,9 +15,12 @@ public class PlatformPrefab : MonoBehaviour
         ani = GetComponentInChildren<Animation>();
     }
 
-    public void Active(Vector2 pos)
+    public void Active(Vector2 pos, bool isFirstFrame)
     {
         transform.position = pos;
+
+        if (isFirstFrame)
+            return;
 
         if(Random.value < DataBaseManager.Instance.itemSpawnPer)
         {

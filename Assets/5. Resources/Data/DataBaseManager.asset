@@ -15,7 +15,9 @@ MonoBehaviour:
   scoreColor: {r: 0, g: 0, b: 0, a: 0}
   bounsColor: {r: 0.27450982, g: 1, b: 0, a: 0}
   scorePopInterval: 0.2
+  effect: {fileID: 3746735611339145959, guid: d1924e7f6065115469da498d4325332e, type: 3}
   jumpPowerIncrease: 2
+  GameOverHeight: -20
   largePlatformArr:
   - {fileID: 6945494998386672073, guid: b29b102579bbd3f4bae0ea230fe20bda, type: 3}
   - {fileID: 6945494998386672073, guid: c2ae3185c1c5b8e4292c1f5c0c655fe0, type: 3}

@@ -27,11 +27,11 @@ public class CameraManager : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * DataBaseManager.Instance.followSpeed);
 
-            float bgRightX = bgSrdr.transform.position.x + bgSrdr.size.x /2;
-            float cameraRightX = Camera.main.transform.position.x + cameraWidth * 2;
+            float bgRightX = bgSrdr.transform.position.x + bgSrdr.size.x;
+            float cameraRightX = Camera.main.transform.position.x + cameraWidth / 2;
             if(bgRightX <= cameraRightX)
             {
-                bgSrdr.size = new Vector2(bgSrdr.size.x + cameraWidth * 2,bgSrdr.size.y);
+                bgSrdr.size = new Vector2(bgSrdr.size.x + cameraWidth, bgSrdr.size.y);
             }
 
             yield return null;

@@ -11,9 +11,12 @@ public class DataBaseManager : ScriptableObject
     public Color scoreColor;
     public Color bounsColor;
     public float scorePopInterval = 0.2f;
+    public Effect effect;
 
     [Header("ÇÃ·¹ÀÌ¾î")]
     public float jumpPowerIncrease = 1;
+    public float GameOverHeight;
+
     [Header("ÇÃ·¿Æû")]
     [Tooltip("Å« ÇÃ·¿Æû")]public PlatformPrefab[] largePlatformArr;
     [Tooltip("Áß°£ ÇÃ·¿Æû")] public PlatformPrefab[] middlePlatformArr;
@@ -33,20 +36,42 @@ public class DataBaseManager : ScriptableObject
     [Header("»ç¿îµå")]
     public SfxData[] sfxDataArr;
     public BgmData[] bgmDataArr;
-    Dictionary<Define.SfxType, SfxData> sfxDataDic = new Dictionary<Define.SfxType, SfxData> ();
-    Dictionary<Define.BgmType, BgmData> bgmDataDic = new Dictionary<Define.BgmType, BgmData>();
+    Dictionary<Define.SfxType, SfxData> sfxDataDic;
+    Dictionary<Define.BgmType, BgmData> bgmDataDic;
     public void Init()
     {
         Instance = this;
 
-        foreach(SfxData data in sfxDataArr)
+        if (sfxDataArr != null)
         {
-            sfxDataDic.Add(data.sfxType, data);
+            sfxDataDic = new Dictionary<Define.SfxType, SfxData>();
+            foreach (SfxData data in sfxDataArr)
+            {
+                if (data != null) // Ensure data is not null
+                {
+                    sfxDataDic[data.sfxType] = data;
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("sfxDataArr is not initialized.");
         }
 
-        foreach (BgmData data in bgmDataArr)
+        if (bgmDataArr != null)
         {
-            bgmDataDic.Add(data.bgmType, data);
+            bgmDataDic = new Dictionary<Define.BgmType, BgmData>();
+            foreach (BgmData data in bgmDataArr)
+            {
+                if (data != null) // Ensure data is not null
+                {
+                    bgmDataDic[data.bgmType] = data;
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("bgmDataArr is not initialized.");
         }
     }
 

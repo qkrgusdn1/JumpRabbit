@@ -71,12 +71,13 @@ public class PaltformManager : MonoBehaviour
 
         PlatformPrefab platform = Instantiate(randomPlatform);
 
-        if (platformNum != 0)
+        bool isFirstFrame = platformNum == 0;
+        if(isFirstFrame == false)
         {
-            pos += Vector3.right * platform.HalfSizeX;
+            pos = pos + Vector3.right * platform.HalfSizeX;
         }
 
-        platform.Active(pos);
+        platform.Active(pos, isFirstFrame);
 
         float gap = Random.Range(DataBaseManager.Instance.GapIntervalMin, DataBaseManager.Instance.GapIntervalMax);
         pos += Vector3.right * (platform.HalfSizeX + gap);
